@@ -20,8 +20,14 @@ const cursos = [
   // A map of functions which return data for the schema.
   const resolvers = {
     Query: {
-      obtenerCursos: () => cursos,
-      obtenerTecnologia: () => cursos
+      obtenerCursos: (_, {input}, ctx) => {
+
+        console.log(input);
+        const resultado = cursos.filter(curso => curso.tecnologia === input.tecnologia);
+
+        return resultado;
+      }
+      //obtenerTecnologia: () => cursos
     }
   };
   module.exports = resolvers;
