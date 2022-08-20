@@ -46,8 +46,6 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers, 
-  introspection: true,
-  playground: true,
 });
 
 server.listen().then(({ url }) => {
