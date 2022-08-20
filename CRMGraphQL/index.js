@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server');
-
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
 
 // The GraphQL schema
 const typeDefs = gql`
@@ -46,6 +46,11 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers, 
+  plugins: [
+    ApolloServerPluginLandingPageGraphQLPlayground({
+      // options
+    })
+  ]
 });
 
 server.listen().then(({ url }) => {
