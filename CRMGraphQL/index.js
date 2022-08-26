@@ -8,7 +8,7 @@ conectarDB();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers, 
+  resolvers,
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground({
       // options
