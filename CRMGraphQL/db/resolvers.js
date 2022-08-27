@@ -8,5 +8,5 @@ const resolvers = {
   Mutation: {
     nuevoUsuario: () => "Creando nuevo Usuario"
   }
-};
+}
 module.exports = resolvers;
