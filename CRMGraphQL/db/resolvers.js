@@ -6,7 +6,11 @@ const resolvers = {
     obtenerCurso: () => "algo"
   },
   Mutation: {
-    nuevoUsuario: () => "Creando nuevo Usuario"
+    nuevoUsuario: (_, { input }) => {
+      console.log(input);
+      return "Creando...";
+
+    }
   }
 }
 module.exports = resolvers;
