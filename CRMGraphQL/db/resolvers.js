@@ -1,5 +1,5 @@
 const Usuario = require('../models/Usuario');
-
+const bcryptjs = require('bcryptjs');
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
@@ -17,6 +17,8 @@ const resolvers = {
         throw new Error('El usuario ya esta registrado.');
       }
       //hash de password
+      const salt = await bcryptjs.genSaltSync(10);
+      input.password = await bcryptjs.hash(password, salt);
 
       //guardar en la base de datos
       try {
