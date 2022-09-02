@@ -29,7 +29,22 @@ const resolvers = {
         console.log(error);
       }
 
+    },
+    autenticarUsuario: async (_, { input }) => {
+      const { email, password } = input;
+      //si el usuario existe
+      const existeUsuario = await Usuario.findOne({ email });
+      if (!existeUsuario) {
+        throw new Error('El usuario no existe.');
+      }
+
+      //Revisar si el password es correcto
+
+
+      //crear el token
+
     }
   }
+
 }
 module.exports = resolvers;
