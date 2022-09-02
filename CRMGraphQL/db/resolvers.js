@@ -1,6 +1,13 @@
 const Usuario = require('../models/Usuario');
 const bcryptjs = require('bcryptjs');
+require('dotenv').config({ path: 'variables.env' });
+
+const crearToken = (usuario, secreta, expiracion) => {
+  console.log(usuario);
+
+}
 // A map of functions which return data for the schema.
+//RESOLVERS
 const resolvers = {
   Query: {
     obtenerCurso: () => "algo"
@@ -39,6 +46,14 @@ const resolvers = {
       }
 
       //Revisar si el password es correcto
+      const passwordCorrecto = await bcryptjs.compare(password, existeUsuario.password);
+      if (!passwordCorrecto) {
+        throw new Error('El password es Incorrecto.');
+      }
+
+      return {
+        token: crearToken(existeUsuario, process.env.SECRETA, '24h')
+      }
 
 
       //crear el token
