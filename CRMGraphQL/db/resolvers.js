@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
 
 const crearToken = (usuario, secreta, expiresIn) => {
+
   console.log(usuario);
   const { id, email, nombre, apellido } = usuario;
   return jwt.sign({ id, email, nombre, apellido }, secreta, { expiresIn })
@@ -58,14 +59,22 @@ const resolvers = {
       if (!passwordCorrecto) {
         throw new Error('El password es Incorrecto.');
       }
-
+      //crear el token
       return {
         token: crearToken(existeUsuario, process.env.SECRETA, '24h')
       }
 
+    },
+    nuevoProducto: async (_, { input }) => {
+      try {
+        const producto = new Producto(input);
+        //almacenar en la base de datos
+        const resultado = await producto.save();
+        return resultado;
 
-      //crear el token
-
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
