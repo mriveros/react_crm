@@ -5,8 +5,14 @@ const ProductosSchema = mongoose.Schema({
         require: true,
         trim: true
     },
-    apellido: {
-        type: String,
+    existencia: {
+        type: Number,
+        require: true,
+        trim: true
+
+    },
+    precio: {
+        type: Number,
         require: true,
         trim: true
     },
