@@ -44,7 +44,7 @@ const typeDefs = gql`
     obtenerUsuario(token: String!): Usuario
 
     #PRODUCTOS
-    
+    obtenerProductos: [Producto]
 
   }
 
