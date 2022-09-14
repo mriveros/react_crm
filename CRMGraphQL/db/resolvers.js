@@ -111,6 +111,7 @@ const resolvers = {
       if (!producto) {
         throw new error('Producto no encontrado');
       }
+      //eliminar
       try {
         await Producto.findOneAndDelete({ _id: id });
         return "Producto Eliminado";
