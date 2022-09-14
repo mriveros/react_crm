@@ -96,7 +96,7 @@ const resolvers = {
     },
     actualizarProducto: async (_, { id, input }) => {
       //revisar si el producto eiste
-      const producto = await Producto.findById(id);
+      let producto = await Producto.findById(id);
       if (!producto) {
         throw new error('Producto no encontrado');
       }
