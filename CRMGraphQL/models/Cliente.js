@@ -28,6 +28,9 @@ const ClientesSchema = mongoose.Schema({
     creado: {
         type: Date,
         default: Date.now()
+    },
+    vendedor: {
+        type: mongoose.Schema.Types.ObjectId
     }
 });
 
