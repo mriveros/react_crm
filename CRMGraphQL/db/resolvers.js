@@ -120,6 +120,14 @@ const resolvers = {
         throw new error('Producto no eliminado');
       }
 
+    },
+    nuevoCliente: async (_, { input }) => {
+      //verificar si el cliente ya esta registrado
+
+      //asignar un vendedor
+
+      //guardar en la base de datos
+
     }
   }
 
