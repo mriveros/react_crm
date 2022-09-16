@@ -123,10 +123,25 @@ const resolvers = {
     },
     nuevoCliente: async (_, { input }) => {
       //verificar si el cliente ya esta registrado
+      const email = { input };
+      console.log(input.email);
+      const cliente = await Cliente.findOne(email);
 
+      if (cliente) {
+        throw new error('El cliente ya esta registrado');
+      }
+      const nuevoCliente = new Cliente(input);
       //asignar un vendedor
-
+      nuevoCliente.vendedor = "630fd71c6b8f6d4a6ee13681";
       //guardar en la base de datos
+      try {
+
+        const resultado = await nuevoCliente.save();
+        return resultado;
+      } catch (error) {
+        console.log(error);
+      }
+
 
     }
   }
