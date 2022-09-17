@@ -9,6 +9,10 @@ conectarDB();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => {
+    console.log(req.headers['authorization']);
+    const token = req.headers['authorization']
+  },
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground({
       // options
