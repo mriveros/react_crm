@@ -121,7 +121,8 @@ const resolvers = {
       }
 
     },
-    nuevoCliente: async (_, { input }) => {
+    nuevoCliente: async (_, { input }, ctx) => {
+      console.log(ctx);
       //verificar si el cliente ya esta registrado
       const email = { input };
       console.log(input.email);
@@ -132,7 +133,7 @@ const resolvers = {
       }
       const nuevoCliente = new Cliente(input);
       //asignar un vendedor
-      nuevoCliente.vendedor = "630fd71c6b8f6d4a6ee13681";
+      nuevoCliente.vendedor = ctx.usuario.id;
       //guardar en la base de datos
       try {
 
