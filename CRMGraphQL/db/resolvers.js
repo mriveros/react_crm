@@ -45,6 +45,15 @@ const resolvers = {
         console.log(error);
 
       }
+    },
+    obtenercliente: async (_, { id }) => {
+      //revisar si el cliente eiste
+      const cliente = await Cliente.findById(id);
+      if (!cliente) {
+        throw new error('Cliente no encontrado');
+      }
+
+      return cliente;
     }
   },
   Mutation: {
