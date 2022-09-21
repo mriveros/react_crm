@@ -149,7 +149,7 @@ const resolvers = {
       }
       const nuevoCliente = new Cliente(input);
       //asignar un vendedor
-      nuevoCliente.vendedor = '630fd71c6b8f6d4a6ee13681';
+      nuevoCliente.vendedor = ctx.usuario.id;
       //guardar en la base de datos
       try {
         const resultado = await nuevoCliente.save();
