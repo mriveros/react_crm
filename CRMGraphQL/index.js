@@ -13,7 +13,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
-    //console.log(req.headers['authorization']);
+    
     const token = req.headers['authorization'] || ' ';
     if (token) {
       try {
@@ -27,7 +27,6 @@ const server = new ApolloServer({
   },
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground({
-      // options
     })
   ]
 });
