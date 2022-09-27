@@ -6,6 +6,7 @@ const conectarDB = require('./config/db');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
 
+
 //conectar a la base de datos
 conectarDB();
 
