@@ -64,7 +64,7 @@ const resolvers = {
 
       }
     },
-    obtenerClienteVendedor: async (_, { id }, ctx) => {
+    obtenerCliente: async (_, { id }, ctx) => {
       //revisar si el cliente existe
       const cliente = await Cliente.findById(id);
       if (!cliente) {
