@@ -74,11 +74,6 @@ const resolvers = {
       if (cliente.vendedor.ToString() != ctx.usuario.id){
         throw new error('No tienes las credenciales');
       }
-
-      if (!cliente) {
-        throw new error('Cliente no encontrado');
-      }
-
       return cliente;
     },
   },
