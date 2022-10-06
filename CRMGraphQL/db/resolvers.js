@@ -63,7 +63,24 @@ const resolvers = {
         console.log(error);
 
       }
-    }
+    },
+    obtenerClienteVendedor: async (_, { id }, ctx) => {
+      //revisar si el cliente existe
+      const cliente = await Cliente.findById(id);
+      if (!cliente) {
+        throw new error('Cliente no encontrado');
+      }
+      //Quien lo creo puede verlo
+      if (cliente.vendedor.ToString() != ctx.usuario.id){
+        throw new error('No tienes las credenciales');
+      }
+
+      if (!cliente) {
+        throw new error('Cliente no encontrado');
+      }
+
+      return cliente;
+    },
   },
   Mutation: {
     nuevoUsuario: async (_, { input }) => {
