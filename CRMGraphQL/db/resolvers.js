@@ -54,6 +54,15 @@ const resolvers = {
       }
 
       return cliente;
+    },
+    obtenerClientesVendedor: async (_, { }, ctx) => {
+      try {
+        const clientes = await Cliente.find({ vendedor: ctx.usuario.id.ToString() });
+        return clientes;
+      } catch (error) {
+        console.log(error);
+
+      }
     }
   },
   Mutation: {
