@@ -32,7 +32,7 @@ const resolvers = {
       //revisar si el producto eiste
       const producto = await Producto.findById(id);
       if (!producto) {
-        throw new error('Producto no encontrado');
+        throw new Error('Producto no encontrado');
       }
 
       return producto;
@@ -50,7 +50,7 @@ const resolvers = {
       //revisar si el cliente eiste
       const cliente = await Cliente.findById(id);
       if (!cliente) {
-        throw new error('Cliente no encontrado');
+        throw new Error('Cliente no encontrado');
       }
 
       return cliente;
@@ -68,11 +68,11 @@ const resolvers = {
       //revisar si el cliente existe
       const cliente = await Cliente.findById(id);
       if (!cliente) {
-        throw new error('Cliente no encontrado');
+        throw new Error('Cliente no encontrado');
       }
       //Quien lo creo puede verlo
       if (cliente.vendedor.ToString() != ctx.usuario.id){
-        throw new error('No tienes las credenciales');
+        throw new Error('No tienes las credenciales');
       }
       return cliente;
     },
@@ -181,6 +181,20 @@ const resolvers = {
       }
 
 
+    },
+    actualizarCliente: async (_{id, input}, ctx) =>{
+      //verificar si existe o no
+      const cliente = await Cliente.findById(id)
+      if (!cliente){
+        throw new error('Ese cliente no existe');
+      }
+      //verificar si es que vendedor el que edita
+      if (cliente.vendedor.ToString() != ctx.usuario.id){
+        throw new Error('No tienes las credenciales');
+      }
+      //guardar el cliente
+      cliente = await Cliente.findOneAndUpdate({_id, id}, input, {new: true});
+      return cliente;
     }
   }
 

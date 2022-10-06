@@ -84,7 +84,7 @@ const typeDefs = gql`
 
     #CLIENTES
     nuevoCliente(input: ClienteInput): Cliente
-    #actualizarCliente(id: ID!, input: ClienteInput) : Cliente
+    actualizarCliente(id: ID!, input: ClienteInput) : Cliente
     #eliminarCliente(id: ID!): String 
 
   }
