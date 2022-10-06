@@ -193,7 +193,7 @@ const resolvers = {
         throw new Error('No tienes las credenciales');
       }
       //guardar el cliente
-      cliente = await Cliente.findOneAndUpdate({_id, id}, input, {new: true});
+      cliente = await Cliente.findOneAndUpdate({_id: id}, input, {new: true});
       return cliente;
     }
   }
