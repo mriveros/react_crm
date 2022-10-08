@@ -52,7 +52,6 @@ const resolvers = {
       if (!cliente) {
         throw new error('Cliente no encontrado');
       }
-
       return cliente;
     },
     obtenerClientesVendedor: async (_, { }, ctx) => {
