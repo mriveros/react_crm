@@ -46,14 +46,14 @@ const resolvers = {
 
       }
     },
-    obtenercliente: async (_, { id }) => {
+    /*obtenercliente: async (_, { id }) => {
       //revisar si el cliente eiste
       const cliente = await Cliente.findById(id);
       if (!cliente) {
         throw new Error('Cliente no encontrado');
       }
       return cliente;
-    },
+    },*/
     obtenerClientesVendedor: async (_, { }, ctx) => {
       try {
         const clientes = await Cliente.find({ vendedor: ctx.usuario.id.ToString() });
@@ -179,36 +179,36 @@ const resolvers = {
 
 
     },
-    actualizarCliente: async(_{ id, input }, ctx) => {
-  //verificar si existe o no
-  const cliente = await Cliente.findById(id)
-  if (!cliente) {
-    throw new error('Ese cliente no existe');
-  }
-  //verificar si es que vendedor el que edita
-  if (cliente.vendedor.ToString() != ctx.usuario.id) {
-    throw new Error('No tienes las credenciales');
-  }
-  //guardar el cliente
-  cliente = await Cliente.findOneAndUpdate({ _id: id }, input, { new: true });
-  return cliente;
-},
-eliminarCliente: async (_, { id }, ctx) => {
-  //revisar si el cliente existe
-  let cliente = await Cliente.findById(id);
-  if (!cliente) {
-    throw new error('Cliente no existe');
-  }
+    actualizarCliente: async (_, { id, input }, ctx) => {
+      //verificar si existe o no
+      const cliente = await Cliente.findById(id)
+      if (!cliente) {
+        throw new error('Ese cliente no existe');
+      }
+      //verificar si es que vendedor el que edita
+      if (cliente.vendedor.ToString() != ctx.usuario.id) {
+        throw new Error('No tienes las credenciales');
+      }
+      //guardar el cliente
+      cliente = await Cliente.findOneAndUpdate({ _id: id }, input, { new: true });
+      return cliente;
+    },
+    eliminarCliente: async (_, { id }, ctx) => {
+      //revisar si el cliente existe
+      let cliente = await Cliente.findById(id);
+      if (!cliente) {
+        throw new error('Cliente no existe');
+      }
 
-  //verificar si es que vendedor el que edita
-  if (cliente.vendedor.ToString() != ctx.usuario.id) {
-    throw new Error('No tienes las credenciales');
-  }
+      //verificar si es que vendedor el que edita
+      if (cliente.vendedor.ToString() != ctx.usuario.id) {
+        throw new Error('No tienes las credenciales');
+      }
 
-  //eliminar
-  await Cliente.findOneAndDelete({ _id: id });
-  return "Cliente Eliminado";
-}
+      //eliminar
+      await Cliente.findOneAndDelete({ _id: id });
+      return "Cliente Eliminado";
+    }
   }
 
 }
