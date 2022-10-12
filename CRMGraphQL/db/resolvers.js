@@ -48,7 +48,9 @@ const resolvers = {
     },
     obtenerClientesVendedor: async (_, { }, ctx) => {
       try {
-        const clientes = await Cliente.find({ vendedor: ctx.usuario.id.ToString() });
+        console.log("###################################");
+        console.log(ctx.usuario.id.toString());
+        const clientes = await Cliente.find({ vendedor: ctx.usuario.id.toString() });
         return clientes;
       } catch (error) {
         console.log(error);
