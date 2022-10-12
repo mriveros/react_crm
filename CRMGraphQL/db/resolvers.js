@@ -46,14 +46,6 @@ const resolvers = {
 
       }
     },
-    /*obtenercliente: async (_, { id }) => {
-      //revisar si el cliente eiste
-      const cliente = await Cliente.findById(id);
-      if (!cliente) {
-        throw new Error('Cliente no encontrado');
-      }
-      return cliente;
-    },*/
     obtenerClientesVendedor: async (_, { }, ctx) => {
       try {
         const clientes = await Cliente.find({ vendedor: ctx.usuario.id.ToString() });
