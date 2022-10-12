@@ -48,13 +48,10 @@ const resolvers = {
     },
     obtenerClientesVendedor: async (_, { }, ctx) => {
       try {
-        console.log("###################################");
-        console.log(ctx.usuario.id.toString());
         const clientes = await Cliente.find({ vendedor: ctx.usuario.id.toString() });
         return clientes;
       } catch (error) {
         console.log(error);
-
       }
     },
     obtenerCliente: async (_, { id }, ctx) => {
@@ -64,7 +61,7 @@ const resolvers = {
         throw new Error('Cliente no encontrado');
       }
       //Quien lo creo puede verlo
-      if (cliente.vendedor.ToString() != ctx.usuario.id) {
+      if (cliente.vendedor.toString() != ctx.usuario.id) {
         throw new Error('No tienes las credenciales');
       }
       return cliente;
