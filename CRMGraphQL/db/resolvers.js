@@ -172,12 +172,12 @@ const resolvers = {
     },
     actualizarCliente: async (_, { id, input }, ctx) => {
       //verificar si existe o no
-      const cliente = await Cliente.findById(id)
+      let cliente = await Cliente.findById(id)
       if (!cliente) {
         throw new error('Ese cliente no existe');
       }
       //verificar si es que vendedor el que edita
-      if (cliente.vendedor.ToString() != ctx.usuario.id) {
+      if (cliente.vendedor.toString() != ctx.usuario.id) {
         throw new Error('No tienes las credenciales');
       }
       //guardar el cliente
