@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const ProductoSchema = mongoose.Schema({
-    pedido :{
+    pedido: {
         type: Array,
         required: true
     },
-    total:{
+    total: {
         type: Number,
         required: true
     },
@@ -17,8 +17,17 @@ const ProductoSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Usuario'
+    },
+    estado: {
+        type: String,
+        default: "Pendiente",
+        required: true
+    },
+    creado: {
+        type: Date,
+        default: Date.now
     }
-    
+
 });
 
 module.exports = mongoose.model('Pedido', PedidosSchema);
