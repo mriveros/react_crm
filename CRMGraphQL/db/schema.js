@@ -116,7 +116,7 @@ const typeDefs = gql`
     eliminarCliente(id: ID!): String 
 
     #Pedidos
-    nuevoPerdido(input: PedidoInput) : Pedido
+    nuevoPedido(input: PedidoInput) : Pedido
   }
 
 
