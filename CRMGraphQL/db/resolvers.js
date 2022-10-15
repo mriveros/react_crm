@@ -204,7 +204,7 @@ const resolvers = {
       const { cliente } = input;
 
       //verificar si el cliente existe
-      let clienteExiste = await Cliente.findById(id);
+      let clienteExiste = await Cliente.findById(cliente);
       if (!clienteExiste) {
         throw new error('Cliente no existe');
       }
