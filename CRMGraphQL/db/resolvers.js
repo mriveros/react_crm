@@ -213,7 +213,14 @@ const resolvers = {
         throw new Error('No tienes las credenciales');
       }
       //revisar que el stock esta disponible
-
+      input.pedido.forEach(async articulo => {
+        const { id } = articulo;
+        const producto = await Producto.findById(id);
+        console.log('ERRO#################');
+        if (articulo.cantidad > producto.existencia) {
+          throw new error(`El articulo ${producto.nombre} excede cantidad disponible`);
+        }
+      });
       //asignarle un vendedor
 
       //guardar en la base de datos
