@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ProductoSchema = mongoose.Schema({
+const PedidosSchema = mongoose.Schema({
     pedido: {
         type: Array,
         required: true
