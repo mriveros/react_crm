@@ -293,6 +293,7 @@ const resolvers = {
       };
       //guardar el pedido
       const resultado = await Pedido.findOneAndUpdate({ _id: id }, input, { new: true });
+      return resultado;
 
     }
   }
