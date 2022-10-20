@@ -103,6 +103,7 @@ const typeDefs = gql`
     obtenerPedidos: [Pedido]
     obtenerPedidosVendedor:[Pedido]
     obtenerPedido(id: ID!): Pedido
+    obtenerPedidoEstado(estado: String!): [Pedido]
 
   }
 
@@ -126,6 +127,7 @@ const typeDefs = gql`
     actualizarPedido(id: ID!, input: PedidoInput): Pedido
     eliminarPedido(id: ID!): String
     
+
   }
 
 
