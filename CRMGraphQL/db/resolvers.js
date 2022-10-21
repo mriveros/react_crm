@@ -116,6 +116,11 @@ const resolvers = {
             foreignField: '_id',
             as: "cliente"
           }
+        },
+        {
+          $sort: {
+            total: -1
+          }
         }
       ]);
       return clientes;
