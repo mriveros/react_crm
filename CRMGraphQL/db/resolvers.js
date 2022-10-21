@@ -141,6 +141,8 @@ const resolvers = {
             foreignField: '_id',
             as: "vendedor"
           }
+        }, {
+          $limit: 3
         },
         {
           $sort: {
@@ -149,6 +151,10 @@ const resolvers = {
         }
       ]);
       return vendedores;
+    },
+    buscarProducto: async (_, { texto }) => {
+      const productos = await Producto.find({ $text: { $search: texto } }).limit(10)
+      return productos;
     }
   },
   Mutation: {
