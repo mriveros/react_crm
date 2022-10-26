@@ -1,12 +1,13 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import Layout from '../components/Layout'
-
-export default function Index() {
-    <div>
+const Nosotros = () => (
+    < div >
         <Layout>
-            <h2>Desde Index</h2>
+            <h2>
+                Desde Nosotros
+            </h2>
         </Layout>
-    </div>
-}
+    </div >
+)
+export default Nosotros
+

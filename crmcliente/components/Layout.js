@@ -1,11 +1,12 @@
-import React, { Children } from "react";
+import React from 'react';
 
-const Layout = ({ Children }) => {
+const Layout = ({ children }) => {
 
     return (
         <>
-            <h1>Layout</h1>
-            {Children}
-        </>);
+            <h1>Desde Layout</h1>
+            {children}
+        </>
+    );
 }
 export default Layout;

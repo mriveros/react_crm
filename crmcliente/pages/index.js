@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import Layout from '../components/Layout'
-
-export default function Index() {
+const Index = () => (
   <div>
     <Layout>
-      <h2>Desde Index</h2>
+      <h2>
+        Desde Index
+      </h2>
     </Layout>
   </div>
-}
+)
+export default Index
