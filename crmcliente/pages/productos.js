@@ -1,13 +1,12 @@
 import Head from 'next/head'
 import Layout from '../components/Layout'
-const Nosotros = () => (
+const Productos = () => (
     < div >
         <Layout>
             <h2>
-                Desde Nosotros
+                Desde Productos
             </h2>
         </Layout>
     </div >
 )
-export default Nosotros
-
+export default Productos;
