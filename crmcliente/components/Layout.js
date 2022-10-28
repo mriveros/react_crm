@@ -1,16 +1,23 @@
 import React from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
+import Sidebar from '../components/Sidebar';
 const Layout = ({ children }) => {
 
     return (
         <>
-            <head>
-                <title>CRM -  Administracion de Clientes</title>
+            <Head>
+                <title>CRM -  Administración de Clientes</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
                 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-            </head>
-            <h1>Desde Layout</h1>
-            {children}
+            </Head>
+            <div className='bg-gray-200 min-h-screen'>
+                <div className='fex min-h-screen'>
+                <Sidebar/>
+                {children}
+                </div>
+            
+            </div>
+            
         </>
     );
 }
