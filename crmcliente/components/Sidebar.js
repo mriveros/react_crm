@@ -10,12 +10,17 @@ const Sidebar = () => {
 		<nav className='mt-5 list-none'>
 			<li className={router.pathname === '/' ? 'bg-blue-800 p-2' : 'p-2'} >
 				<Link href='/'>
-					<a className='text-white mb-5 block'>Clientes</a>
+					<a className='text-white block'>Clientes</a>
 				</Link>
 			</li>
 			<li className={router.pathname === '/pedidos' ? 'bg-blue-800 p-2' : 'p-2'} >
 				<Link href='/pedidos'>
-					<a className='text-white mb-5 block'>Pedidos</a>
+					<a className='text-white block'>Pedidos</a>
+				</Link>
+			</li>
+			<li className={router.pathname === '/productos' ? 'bg-blue-800 p-2' : 'p-2'} >
+				<Link href='/productos'>
+					<a className='text-white block'>Productos</a>
 				</Link>
 			</li>
 		</nav>
