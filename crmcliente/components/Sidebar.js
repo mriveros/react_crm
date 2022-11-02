@@ -1,17 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Sidebar = () =>{
-	return(<aside className='bg-gray-800 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5'>
+const Sidebar = () => {
+	return (<aside className='bg-gray-800 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5'>
 		<div><p className='text-white text-2xl font-black'>CRM Clientes</p></div>
-		<nav>
-		<li>
+		<nav className='mt-5 list-none'>
+			<li>
 				<Link href='/'>
-				Clientes</Link>
+					<a className='text-white mb-5 block'>Clientes</a>
+				</Link>
 			</li>
 			<li>
 				<Link href='/pedidos'>
-				Pedidos</Link>
+					<a className='text-white mb-5 block'>Pedidos</a>
+				</Link>
 			</li>
 		</nav>
 	</aside>
