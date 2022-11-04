@@ -1,34 +1,41 @@
 import React from "react";
 import Layout from "../components/Layout";
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useMutation, gql } from '@apollo/client';
+
+const QUERY = gql`
+
+`;
 const NuevaCuenta = () => {
+    //Obtener productos de GraphQl
+    c
     //validacion del formulario
     const formik = useFormik({
         initialValues: {
             nombre: '',
             apellido: '',
             email: '',
-            password:''
+            password: ''
         },
         validationSchema: Yup.object({
             nombre: Yup.string()
-            .required('El nombre es Obligatorio'),
+                .required('El nombre es Obligatorio'),
             apellido: Yup.string()
-            .required('El apellido es Obligatorio'),
+                .required('El apellido es Obligatorio'),
             email: Yup.string()
-            .email('El email no es válido').required('El email es obligatorio'),
+                .email('El email no es válido').required('El email es obligatorio'),
             password: Yup.string()
-            .required('El password no puede ir vacío')
-            .min(6, 'El password debe ser de al menos 6 caracteres.')
+                .required('El password no puede ir vacío')
+                .min(6, 'El password debe ser de al menos 6 caracteres.')
         }),
-        onSubmit: valores =>{
+        onSubmit: valores => {
             console.log('enviando');
             console.log(valores);
         }
     });
 
-
+    if (loading) return 'Cargando...';
     return (
         <>
             <Layout>
@@ -53,10 +60,10 @@ const NuevaCuenta = () => {
                             </div>
                             {formik.touched.nombre && formik.errors.nombre ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                <p className="font-bold">Error</p>
-                                <p>{formik.errors.nombre}</p>
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.nombre}</p>
                                 </div>
-                            ):null}
+                            ) : null}
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="apellido" >
                                     Apellido
@@ -72,10 +79,10 @@ const NuevaCuenta = () => {
                             </div>
                             {formik.touched.apellido && formik.errors.apellido ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                <p className="font-bold">Error</p>
-                                <p>{formik.errors.apellido}</p>
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.apellido}</p>
                                 </div>
-                            ):null}
+                            ) : null}
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email" >
                                     Email
@@ -91,10 +98,10 @@ const NuevaCuenta = () => {
                             </div>
                             {formik.touched.email && formik.errors.email ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                <p className="font-bold">Error</p>
-                                <p>{formik.errors.email}</p>
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.email}</p>
                                 </div>
-                            ):null}
+                            ) : null}
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password" >
                                     Password
@@ -110,10 +117,10 @@ const NuevaCuenta = () => {
                             </div>
                             {formik.touched.password && formik.errors.password ? (
                                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                <p className="font-bold">Error</p>
-                                <p>{formik.errors.password}</p>
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.password}</p>
                                 </div>
-                            ):null}
+                            ) : null}
                             <input
                                 type="submit" className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-700"
                                 value="Crear Cuenta"
