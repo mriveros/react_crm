@@ -2,23 +2,28 @@ import React from "react";
 import Layout from "../components/Layout";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useQuery, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 
-const QUERY = gql`
-query {
-    obtenerProductos{
+const NUEVACUENTA = gql`
+mutation nuevoUsuario($input: UsuarioInput){
+    nuevoUsuario(input: $input){
       id
       nombre
-      existencia
-      precio
-      creado
+      apellido
+      email
     }
   }
 `;
 const NuevaCuenta = () => {
     //Obtener productos de GraphQl
-    const { data } = useQuery(QUERY);
+    const { data, loading, error } = useQuery(QUERY);
     console.log(data);
+    console.log(loading);
+    console.log(error);
+
+
+
+
     //validacion del formulario
     const formik = useFormik({
         initialValues: {
@@ -44,7 +49,7 @@ const NuevaCuenta = () => {
         }
     });
 
-    //if (loading) return 'Cargando...';
+    if (loading) return 'Cargando...';
     return (
         <>
             <Layout>
