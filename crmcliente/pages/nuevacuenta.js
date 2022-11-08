@@ -40,16 +40,26 @@ const NuevaCuenta = () => {
                 .required('El password no puede ir vacío')
                 .min(6, 'El password debe ser de al menos 6 caracteres.')
         }),
-        onSubmit: valores => {
+        onSubmit: async valores => {
+            const { nombre, apellido, email, password } = valores;
             try {
-                nuevoUsuario
+                await nuevoUsuario({
+                    variables: {
+                        input: {
+                            nombre,
+                            apellido,
+                            email,
+                            password
+                        }
+                    }
+                })
             } catch (error) {
 
             }
         }
     });
 
-    if (loading) return 'Cargando...';
+    //if (loading) return 'Cargando...';
     return (
         <>
             <Layout>
