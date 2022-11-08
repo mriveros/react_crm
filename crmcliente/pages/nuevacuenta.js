@@ -15,13 +15,10 @@ mutation nuevoUsuario($input: UsuarioInput){
   }
 `;
 const NuevaCuenta = () => {
-    //Obtener productos de GraphQl
-    const { data, loading, error } = useQuery(QUERY);
-    console.log(data);
-    console.log(loading);
-    console.log(error);
 
 
+    //Mutation para crear nuevo usuario
+    const [nuevoUsuario] = useMutation(NUEVACUENTA);
 
 
     //validacion del formulario
@@ -44,8 +41,11 @@ const NuevaCuenta = () => {
                 .min(6, 'El password debe ser de al menos 6 caracteres.')
         }),
         onSubmit: valores => {
-            console.log('enviando');
-            console.log(valores);
+            try {
+                nuevoUsuario
+            } catch (error) {
+
+            }
         }
     });
 
