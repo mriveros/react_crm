@@ -43,7 +43,7 @@ const NuevaCuenta = () => {
         onSubmit: async valores => {
             const { nombre, apellido, email, password } = valores;
             try {
-                await nuevoUsuario({
+                const { data } = await nuevoUsuario({
                     variables: {
                         input: {
                             nombre,
@@ -52,7 +52,8 @@ const NuevaCuenta = () => {
                             password
                         }
                     }
-                })
+                });
+                console.log(data);
             } catch (error) {
 
             }
