@@ -9,6 +9,8 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
+
+    //leer el storage almacenado
     return {
         headers: {
             ...headers,
