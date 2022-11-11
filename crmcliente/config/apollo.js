@@ -8,17 +8,19 @@ const httpLink = createHttpLink({
     fetch
 });
 
-const authLink = setContext()=> {
-
-}
+const authLink = setContext((_, { headers }) => {
+    return {
+        headers: {
+            ...headers,
+            miPropioHeader: 'Hola!!'
+        }
+    }
+});
 
 const client = new ApolloClient({
     connectToDevTools: true,
     cache: new InMemoryCache(),
-    link: new HttpLink({
-        uri: 'http://localhost:4000/',
-        fetch
-    })
+    link: authLink.concat(httpLink)
 });
 
 export default client
