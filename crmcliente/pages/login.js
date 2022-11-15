@@ -46,7 +46,7 @@ const Login = () => {
                 });
                 console.log(data);
                 //usuario creado correctamente
-                guardarMensaje(`Autenticando`);
+                guardarMensaje(`Autenticando...`);
                 setTimeout(() => {
                     guardarMensaje(null);
                 }, 2000);
