@@ -1,4 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { useQuery, gql } from '@apollo/client'
+
+const OBTENER_USUARIO = gql`query obtenerUsuario(){
+    obtenerUsuario(){
+        id
+        nombre
+        apellido
+    }
+}`;
 
 const Header = () => {
     return (
