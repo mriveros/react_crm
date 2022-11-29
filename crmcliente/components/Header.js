@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client'
 
-const OBTENER_USUARIO = gql`query obtenerUsuario(){
-    obtenerUsuario(){
+const OBTENER_USUARIO = gql`query obtenerUsuario{
+    obtenerUsuario{
         id
         nombre
         apellido
@@ -10,9 +10,19 @@ const OBTENER_USUARIO = gql`query obtenerUsuario(){
 }`;
 
 const Header = () => {
+    //query de apollo
+    const { data, loading, error } = useQuery(OBTENER_USUARIO);
+    console.log(loading);
+    console.log(data);
+    console.log(error);
+    //proteger a no acceder a data antes de tener resultados
+    if (loading) return null;
+
+    const { nombre, apellido } = data.obtenerUsuario;
+
     return (
-        <div className='flex justify-end'>
-            <h1 className='mr-2'>Hola: Marcos</h1>
+        <div className='flex justify-between mb-6'>
+            <h1 className='mr-2'>Hola: {nombre} {apellido}</h1>
             <button type='button'>Cerrar Sesión</button>
         </div>
     );
