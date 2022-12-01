@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import { gql, useQuery } from '@apollo/client'
+import { router } from 'next/router';
 
 const OBTENER_CLIENTES_USUARIO = gql`
 query obtenerClientesVendedor{
@@ -24,6 +25,9 @@ const Index = () => {
 
   if (loading) return 'Cargando...';
 
+  if (!data) {
+    return router.push('/login');
+  }
   return (
     <div>
       <Layout>
