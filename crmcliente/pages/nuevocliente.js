@@ -48,6 +48,35 @@ const NuevoCliente = () => {
                         />
                     </div>
 
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email" >
+                            Email
+                        </label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
+                            id="email"
+                            type="email"
+                            placeholder="Email Cliente"
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        // value={formik.values.email}
+                        />
+                    </div>
+
+
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="telefono" >
+                            Teléfono
+                        </label>
+                        <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
+                            id="telefono"
+                            type="tel"
+                            placeholder="Telêfono Cliente"
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        // value={formik.values.email}
+                        />
+                    </div>
+
                 </form>
 
             </div>
