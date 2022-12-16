@@ -1,6 +1,18 @@
 import React from 'react'
 import Layout from '../components/Layout';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 const NuevoCliente = () => {
+    const formik = useFormik({
+        initialValues: {
+            nombre: '',
+            apellido: '',
+            empresa: '',
+            email: '',
+            telefono: ''
+        }
+    })
     return (<Layout>
         <h1 className='text-2xl text-gray-800 font-light'>Nuevo Cliente</h1>
         <div className='flex justify-center mt-5'>
