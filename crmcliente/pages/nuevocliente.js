@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../components/Layout';
-import { useFormik } from 'formik';
+import { useFormik, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 
 const NuevoCliente = () => {
@@ -11,6 +11,22 @@ const NuevoCliente = () => {
             empresa: '',
             email: '',
             telefono: ''
+        },
+        validationSchema: Yup.object({
+            nombre: Yup.string()
+                .required('El nombre del Cliente es Obligatorio'),
+            apellido: Yup.string()
+                .required('El apellido del Cliente es Obligatorio'),
+            empresa: Yup.string()
+                .required('El campo empresa es obligatorio'),
+            email: Yup.string()
+                .email('Email no válido')
+                .required('El email del Cliente es Obligatorio'),
+            telefono: Yup.string()
+
+        }),
+        onSubmit: valores => {
+            console.log(valores);
         }
     })
     return (<Layout>
@@ -26,9 +42,9 @@ const NuevoCliente = () => {
                             id="nombre"
                             type="text"
                             placeholder="Nombre Cliente"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        // value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.nombre}
                         />
                     </div>
 
@@ -40,9 +56,9 @@ const NuevoCliente = () => {
                             id="apellido"
                             type="text"
                             placeholder="Apellido Cliente"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        // value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.apellido}
                         />
                     </div>
 
@@ -54,9 +70,9 @@ const NuevoCliente = () => {
                             id="empresa"
                             type="text"
                             placeholder="Empresa Cliente"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        // value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.empresa}
                         />
                     </div>
 
@@ -68,9 +84,9 @@ const NuevoCliente = () => {
                             id="email"
                             type="email"
                             placeholder="Email Cliente"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        // value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email}
                         />
                     </div>
 
@@ -83,9 +99,9 @@ const NuevoCliente = () => {
                             id="telefono"
                             type="tel"
                             placeholder="Telêfono Cliente"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        // value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.telefono}
                         />
                     </div>
 
