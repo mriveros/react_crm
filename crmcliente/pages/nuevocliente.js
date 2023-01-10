@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../components/Layout';
-import { useFormik, yupToFormErrors } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const NuevoCliente = () => {
