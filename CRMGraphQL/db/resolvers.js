@@ -215,7 +215,7 @@ const resolvers = {
       //revisar si el producto eiste
       let producto = await Producto.findById(id);
       if (!producto) {
-        throw new error('Producto no encontrado');
+        throw new Error('Producto no encontrado');
       }
       //guardar en la base de datos
       producto = await Producto.findOneAndUpdate({ _id: id }, input, { new: true });
@@ -226,25 +226,29 @@ const resolvers = {
       //revisar si el producto eiste
       let producto = await Producto.findById(id);
       if (!producto) {
-        throw new error('Producto no encontrado');
+        throw new Error('Producto no encontrado');
       }
       //eliminar
       try {
         await Producto.findOneAndDelete({ _id: id });
         return "Producto Eliminado";
       } catch (error) {
-        throw new error('Producto no eliminado');
+        throw new Error('Producto no eliminado');
       }
 
     },
     nuevoCliente: async (_, { input }, ctx) => {
       //verificar si el cliente ya esta registrado
       const { email } = input;
-      //console.log(input.email);
+      console.log(input.email);
+
       const cliente = await Cliente.findOne({ email });
-      if (cliente) {
-        throw new error('El cliente ya esta registrado');
+      console.log(cliente.nombre);
+      if (cliente.nombre != null) {
+
+        throw new Error('El cliente ya existe');
       }
+
       const nuevoCliente = new Cliente(input);
       //asignar un vendedor
       nuevoCliente.vendedor = ctx.usuario.id;
