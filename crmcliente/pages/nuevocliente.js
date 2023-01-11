@@ -33,6 +33,10 @@ const NuevoCliente = () => {
 
     //router
     const router = useRouter();
+
+    //State mensaje de alerta 
+    const [mensaje, guardarMensaje] = useState(null);
+
     //Mutation para crear nuevos clientes
     const [nuevoCliente] = useMutation(NUEVOCLIENTE, {
         update(cache, { data: { nuevoCliente } }) {
@@ -83,13 +87,29 @@ const NuevoCliente = () => {
                         }
                     }
                 });
+                guardarMensaje(`Se creo correctamente el Cliente: ${data.nuevoCliente.nombre}`);
+                setTimeout(() => {
+                    guardarMensaje(null);
+                }, 3000);
                 router.push('/');
             } catch (error) {
                 console.log(error);
+                guardarMensaje(error.message.replace('GraphQL error: ', ''));
+                setTimeout(() => {
+                    guardarMensaje(null);
+                }, 3000);
             }
         }
     })
+    const mostrarMensaje = () => {
+        return (
+            <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
+                <p>{mensaje}</p>
+            </div>
+        )
+    }
     return (<Layout>
+        {mensaje && mostrarMensaje()}
         <h1 className='text-2xl text-gray-800 font-light'>Nuevo Cliente</h1>
         <div className='flex justify-center mt-5'>
             <div className='w-full max-w-lg'>
