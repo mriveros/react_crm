@@ -1,9 +1,31 @@
 import React from 'react'
+import Swal from 'sweetalert2';
+
 const Cliente = ({ cliente }) => {
     const { nombre, apellido, empresa, email, id } = cliente;
+
+
     //elimina un cliente
     const confirmarEliminarCliente = id => {
-        console.log('eliminando', id);
+        Swal.fire({
+            title: 'Desea eliminar a este CLiente?',
+            text: "Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!',
+            cancelButtonText: 'No, cancelar'
+        }).then((result) => {
+            if (result.value) {
+                console.log('Eliminando...', id);
+                Swal.fire(
+                    'Eliminado!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
     return (
 
@@ -19,8 +41,8 @@ const Cliente = ({ cliente }) => {
                         confirmarEliminarCliente(id);
                     }}>
                     Eliminar
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ml-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
 
                 </button>
