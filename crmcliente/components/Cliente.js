@@ -44,7 +44,7 @@ const Cliente = ({ cliente }) => {
     //elimina un cliente
     const confirmarEliminarCliente = id => {
         Swal.fire({
-            title: 'Desea eliminar a este CLiente?',
+            title: 'Desea eliminar a este Cliente?',
             text: "Esta acción no se puede deshacer!",
             icon: 'warning',
             showCancelButton: true,
