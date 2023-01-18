@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 const EditarCliente = () => {
     //obtener el if actual
     const router = useRouter();
-    const { query } = router;
-    console.log(query);
+    const { query: { id } } = router;
+    console.log(id);
 
     return (<h1>Desde Editar</h1>);
 }
