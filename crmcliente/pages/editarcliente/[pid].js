@@ -6,7 +6,7 @@ const EditarCliente = () => {
     //obtener el if actual
     const router = useRouter();
     const { query: { id } } = router;
-    console.log(id);
+    console.log(query);
 
     return (<h1>Desde Editar</h1>);
 }
