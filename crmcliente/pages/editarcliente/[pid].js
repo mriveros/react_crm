@@ -6,7 +6,10 @@ import { useQuery, gql } from '@apollo/client';
 const OBTENER_CLIENTE = gql`query obtenerCliente($id:ID!){
     obtenerCliente(id: $id){
       nombre
+      apellido
       email
+      telefono
+      empresa
     }  
     }`;
 
@@ -24,6 +27,7 @@ const EditarCliente = () => {
     console.log(data);
     console.log(loading);
     console.log(error);
+    if (loading) return 'Cargando...'
 
     return (<Layout>
         <h1 className='text-2xl text-gray-800 font-light'>Editar Cliente</h1>
