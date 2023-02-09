@@ -82,7 +82,7 @@ const Cliente = ({ cliente }) => {
 
         //router para pasar parametros
         Router.push({
-            pathname: "/editarcliente/[id]",
+            pathname: "/editarcliente/{id}",
             query: { id }
         })
     }

@@ -1,12 +1,29 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout'
+import { useQuery, gql } from '@apollo/client';
+
+const OBTENER_CLIENTE = gql`query obtenerCliente($id:ID!){
+    obtenerCliente(id: $id){
+      nombre
+      email
+    }  
+    }`;
 
 const EditarCliente = () => {
     //obtener el if actual
     const router = useRouter();
     const { query: { id } } = router;
     console.log(id);
+
+
+    //consultar para obtener el cliente
+    const { data, loading, error } = useQuery(OBTENER_CLIENTE, {
+        variables: { id }
+    });
+    console.log(data);
+    console.log(loading);
+    console.log(error);
 
     return (<Layout>
         <h1 className='text-2xl text-gray-800 font-light'>Editar Cliente</h1>
@@ -52,7 +69,7 @@ const EditarCliente = () => {
                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                             <p className="font-bold">Error</p>
                             <p>{formik.errors.apellido}</p>
-                        </div>
+                        </div>  
                     ) : null} */}
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="empresa" >
