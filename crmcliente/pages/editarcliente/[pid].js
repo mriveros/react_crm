@@ -51,7 +51,7 @@ const EditarCliente = () => {
                 >
                     {props => {
 
-                        console.log(props);
+
                         return (
                             <form className='bg-white shadow-md px-8 pt-6 pb-8 mb-4'
                                 onSubmit={props.handleSubmit}
@@ -66,17 +66,19 @@ const EditarCliente = () => {
                                         placeholder="Nombre Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                    //value={props.data.nombre}
+                                        value={props.nombre}
                                     />
                                 </div>
-                                {{
-                                    /*  {props.touched.nombre && props.errors.nombre ? (
-                                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                             <p className="font-bold">Error</p>
-                                             <p>{props.errors.nombre}</p>
-                                         </div>
-                                     ) : null }*/
-                                }}
+                                {
+
+                                    props.touched.nombre && props.errors.nombre ? (
+                                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                            <p className="font-bold">Error</p>
+                                            <p>{props.errors.nombre}</p>
+                                        </div>
+                                    ) : null
+
+                                }
 
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="apellido" >
@@ -88,17 +90,17 @@ const EditarCliente = () => {
                                         placeholder="Apellido Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                    // value={props.values.apellido}
+                                        value={props.apellido}
                                     />
                                 </div>
-                                {{
-                                    /* props.touched.apellido && props.errors.apellido ? (
+                                {
+                                    props.touched.apellido && props.errors.apellido ? (
                                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                             <p className="font-bold">Error</p>
                                             <p>{props.errors.apellido}</p>
                                         </div>
-                                    ) : null */
-                                }}
+                                    ) : null
+                                }
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="empresa" >
                                         Empresa
@@ -109,17 +111,17 @@ const EditarCliente = () => {
                                         placeholder="Empresa Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                    // value={props.values.empresa}
+                                        value={props.empresa}
                                     />
                                 </div>
-                                {{
-                                    /* props.touched.empresa && props.errors.empresa ? (
+                                {
+                                    props.touched.empresa && props.errors.empresa ? (
                                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                             <p className="font-bold">Error</p>
                                             <p>{props.errors.empresa}</p>
                                         </div>
-                                    ) : null */
-                                }}
+                                    ) : null
+                                }
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email" >
                                         Email
@@ -130,17 +132,17 @@ const EditarCliente = () => {
                                         placeholder="Email Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                    // value={props.values.email}
+                                        value={props.email}
                                     />
                                 </div>
-                                {{
-                                    /*  props.touched.email && props.errors.email ? (
-                                         < div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                             <p className="font-bold">Error</p>
-                                             <p>{props.errors.email}</p>
-                                         </div>
-                                     ) : null */
-                                }}
+                                {
+                                    props.touched.email && props.errors.email ? (
+                                        < div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                            <p className="font-bold">Error</p>
+                                            <p>{props.errors.email}</p>
+                                        </div>
+                                    ) : null
+                                }
 
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="telefono" >
@@ -152,7 +154,7 @@ const EditarCliente = () => {
                                         placeholder="Telêfono Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                    // value={props.values.telefono}
+                                        value={props.telefono}
                                     />
                                 </div>
 
