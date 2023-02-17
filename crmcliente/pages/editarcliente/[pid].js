@@ -4,6 +4,8 @@ import Layout from '../../components/Layout'
 import { useQuery, gql } from '@apollo/client';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+
+
 const OBTENER_CLIENTE = gql`query obtenerCliente($id:ID!){
     obtenerCliente(id: $id){
       nombre
@@ -26,6 +28,7 @@ const EditarCliente = () => {
         variables: { id }
     });
 
+    //Schema de validacion
     const schemaValidacion = Yup.object({
         nombre: Yup.string()
             .required('El nombre del Cliente es Obligatorio'),
@@ -41,6 +44,7 @@ const EditarCliente = () => {
     });
 
     if (loading) return 'Cargando...'
+    console.log(data.obtenerCliente);
 
     return (<Layout>
         <h1 className='text-2xl text-gray-800 font-light'>Editar Cliente</h1>
@@ -50,7 +54,7 @@ const EditarCliente = () => {
                     validationSchema={schemaValidacion}
                 >
                     {props => {
-
+                        console.log(props);
 
                         return (
                             <form className='bg-white shadow-md px-8 pt-6 pb-8 mb-4'
@@ -151,7 +155,7 @@ const EditarCliente = () => {
                                     <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
                                         id="telefono"
                                         type="tel"
-                                        placeholder="Telêfono Cliente"
+                                        placeholder="Teléfono Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
                                         value={props.telefono}
