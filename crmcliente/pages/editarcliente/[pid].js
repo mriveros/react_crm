@@ -1,9 +1,10 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout'
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 
 
 const OBTENER_CLIENTE = gql`query obtenerCliente($id:ID!){
@@ -16,6 +17,18 @@ const OBTENER_CLIENTE = gql`query obtenerCliente($id:ID!){
     }  
     }`;
 
+const ACTUALIZAR_CLIENTE = gql`mutation actualizarCliente($id: ID!, $input: ClienteInput){
+        actualizarCliente(id: $id, input: $input){
+            nombre
+            apellido
+            email
+            telefono
+            empresa
+        }
+      }`;
+
+
+
 const EditarCliente = () => {
     //obtener el if actual
     const router = useRouter();
@@ -27,6 +40,9 @@ const EditarCliente = () => {
     const { data, loading, error } = useQuery(OBTENER_CLIENTE, {
         variables: { id }
     });
+
+    //Actualizar el cliente
+    const [actualizarCliente] = useMutation(ACTUALIZAR_CLIENTE);
 
     //Schema de validacion
     const schemaValidacion = Yup.object({
@@ -46,6 +62,32 @@ const EditarCliente = () => {
     if (loading) return 'Cargando...'
     //console.log(data.obtenerCliente);
     const { obtenerCliente } = data;
+    //Modifica el cliente en la base de datos
+    const actualizarInfoCliente = async valores => {
+        const { nombre, apellido, empresa, email, telefono } = valores;
+
+        try {
+            const { data } = await actualizarCliente({
+                variables: {
+                    id,
+                    input: { nombre, apellido, empresa, email, telefono }
+                }
+            });
+
+            console.log(data);
+            //Mostrar alerta
+            Swal.fire(
+                'Actualizado!',
+                'El Cliente se actualizo correctamente',
+                'success'
+            )
+            //redireccionar
+            router.push('/');
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
     return (<Layout>
         <h1 className='text-2xl text-gray-800 font-light'>Editar Cliente</h1>
         <div className='flex justify-center mt-5'>
@@ -54,9 +96,13 @@ const EditarCliente = () => {
                     validationSchema={schemaValidacion}
                     enableReinitialize
                     initialValues={obtenerCliente}
+                    onSubmit={(valores) => {
+                        actualizarInfoCliente(valores);
+
+                    }
+                    }
                 >
                     {props => {
-                        console.log(props);
 
                         return (
                             <form className='bg-white shadow-md px-8 pt-6 pb-8 mb-4'
