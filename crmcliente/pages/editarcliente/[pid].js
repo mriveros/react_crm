@@ -44,14 +44,16 @@ const EditarCliente = () => {
     });
 
     if (loading) return 'Cargando...'
-    console.log(data.obtenerCliente);
-
+    //console.log(data.obtenerCliente);
+    const { obtenerCliente } = data;
     return (<Layout>
         <h1 className='text-2xl text-gray-800 font-light'>Editar Cliente</h1>
         <div className='flex justify-center mt-5'>
             <div className='w-full max-w-lg'>
                 <Formik
                     validationSchema={schemaValidacion}
+                    enableReinitialize
+                    initialValues={obtenerCliente}
                 >
                     {props => {
                         console.log(props);
@@ -70,7 +72,7 @@ const EditarCliente = () => {
                                         placeholder="Nombre Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.nombre}
+                                        value={props.values.nombre}
                                     />
                                 </div>
                                 {
@@ -94,7 +96,7 @@ const EditarCliente = () => {
                                         placeholder="Apellido Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.apellido}
+                                        value={props.values.apellido}
                                     />
                                 </div>
                                 {
@@ -115,7 +117,7 @@ const EditarCliente = () => {
                                         placeholder="Empresa Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.empresa}
+                                        value={props.values.empresa}
                                     />
                                 </div>
                                 {
@@ -136,7 +138,7 @@ const EditarCliente = () => {
                                         placeholder="Email Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.email}
+                                        value={props.values.email}
                                     />
                                 </div>
                                 {
@@ -158,7 +160,7 @@ const EditarCliente = () => {
                                         placeholder="Teléfono Cliente"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.telefono}
+                                        value={props.values.telefono}
                                     />
                                 </div>
 
