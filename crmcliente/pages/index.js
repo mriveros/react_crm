@@ -13,6 +13,8 @@ query obtenerClientesVendedor{
     apellido
     empresa
     email
+    vendedor
+    telefono
   }
 }
       `;
@@ -21,7 +23,7 @@ const Index = () => {
   const router = useRouter();
   //Consulta de Apollo
   const { data, loading, error } = useQuery(OBTENER_CLIENTES_USUARIO);
-
+  //console.log(data);
   if (loading) return 'Cargando...';
 
   if (!data.obtenerClientesVendedor) {

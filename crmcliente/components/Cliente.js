@@ -17,6 +17,8 @@ query obtenerClientesVendedor{
     apellido
     empresa
     email
+    vendedor
+    telefono
   }
 }
     `;

@@ -93,6 +93,7 @@ const NuevoCliente = () => {
                 }, 3000);
                 router.push('/');
             } catch (error) {
+                console.log('se ha generado un error');
                 console.log(error);
                 guardarMensaje(error.message.replace('GraphQL error: ', ''));
                 setTimeout(() => {

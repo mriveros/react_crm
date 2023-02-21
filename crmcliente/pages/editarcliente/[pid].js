@@ -27,7 +27,19 @@ const ACTUALIZAR_CLIENTE = gql`mutation actualizarCliente($id: ID!, $input: Clie
         }
       }`;
 
-
+const OBTENER_CLIENTES_USUARIO = gql`
+      query obtenerClientesVendedor{
+        obtenerClientesVendedor{
+          id
+          nombre
+          apellido
+          empresa
+          email
+          vendedor
+          telefono
+        }
+      }
+            `;
 
 const EditarCliente = () => {
     //obtener el id actual
@@ -42,7 +54,35 @@ const EditarCliente = () => {
     });
 
     //Actualizar el cliente
-    const [actualizarCliente] = useMutation(ACTUALIZAR_CLIENTE);
+    //const [actualizarCliente] = useMutation(ACTUALIZAR_CLIENTE);
+    const [actualizarCliente] = useMutation(ACTUALIZAR_CLIENTE, {
+        update(cache, { data: { actualizarCliente } }) {
+            // Actulizar Clientes
+            const { obtenerClientesVendedor } = cache.readQuery({
+                query: OBTENER_CLIENTES_USUARIO
+            });
+
+            const clientesActualizados = obtenerClientesVendedor.map(cliente =>
+                cliente.id === id ? actualizarCliente : cliente
+            );
+
+            cache.writeQuery({
+                query: OBTENER_CLIENTES_USUARIO,
+                data: {
+                    obtenerClientesVendedor: clientesActualizados
+                }
+            });
+
+            // Actulizar Cliente Actual
+            cache.writeQuery({
+                query: OBTENER_CLIENTE,
+                variables: { id },
+                data: {
+                    obtenerCliente: actualizarCliente
+                }
+            });
+        }
+    });
 
     //Schema de validacion
     const schemaValidacion = Yup.object({
@@ -90,6 +130,7 @@ const EditarCliente = () => {
             )
             //redireccionar
             router.push('/');
+
         } catch (error) {
             console.log(error);
         }
