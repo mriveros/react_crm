@@ -30,15 +30,15 @@ const ACTUALIZAR_CLIENTE = gql`mutation actualizarCliente($id: ID!, $input: Clie
 
 
 const EditarCliente = () => {
-    //obtener el if actual
+    //obtener el id actual
     const router = useRouter();
     const { query: { id } } = router;
-    console.log(id);
-
 
     //consultar para obtener el cliente
     const { data, loading, error } = useQuery(OBTENER_CLIENTE, {
-        variables: { id }
+        variables: {
+            id
+        }
     });
 
     //Actualizar el cliente
@@ -70,15 +70,22 @@ const EditarCliente = () => {
             const { data } = await actualizarCliente({
                 variables: {
                     id,
-                    input: { nombre, apellido, empresa, email, telefono }
+                    input: {
+                        nombre,
+                        apellido,
+                        empresa,
+                        email,
+                        telefono
+                    }
                 }
             });
 
-            console.log(data);
+            //console.log(data);
+
             //Mostrar alerta
             Swal.fire(
                 'Actualizado!',
-                'El Cliente se actualizo correctamente',
+                'El Cliente se actualizó correctamente',
                 'success'
             )
             //redireccionar
@@ -211,7 +218,7 @@ const EditarCliente = () => {
                                 </div>
 
                                 <input type="submit"
-                                    className='bg-gray-800 w-full mt-5 p-2  text-white uppercase font-bold hover:bg-gray-900' value="Registrar Cliente" />
+                                    className='bg-gray-800 w-full mt-5 p-2  text-white uppercase font-bold hover:bg-gray-900' value="Actualizar Cliente" />
 
                             </form>
                         )

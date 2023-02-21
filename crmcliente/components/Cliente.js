@@ -110,7 +110,7 @@ const Cliente = ({ cliente }) => {
                 <button
                     type='button'
                     className='flex justify-center items-center bg-green-600 py-2 px-4 w-full text-white rounded text-xs uppercase font-cold'
-                    onClick={() => { editarCliente() }}
+                    onClick={() => editarCliente()}
                 >
                     Editar
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
