@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 const NUEVOCLIENTE = gql`
 mutation nuevoCliente($input: ClienteInput){
     nuevoCliente(input: $input){
-      id
       nombre
       apellido
       empresa
@@ -26,6 +25,7 @@ query obtenerClientesVendedor{
     apellido
     empresa
     email
+    telefono
   }
 }
       `;
@@ -40,6 +40,7 @@ const NuevoCliente = () => {
     //Mutation para crear nuevos clientes
     const [nuevoCliente] = useMutation(NUEVOCLIENTE, {
         update(cache, { data: { nuevoCliente } }) {
+            console.log(nuevoCliente);
             //Obtener el objeto de cache que deseamos actualizar
             const { obtenerClientesVendedor } = cache.readQuery({ query: OBTENER_CLIENTES_USUARIO })
             //Reescribimos el cache (el cache nunca se debe modificar)
@@ -75,6 +76,7 @@ const NuevoCliente = () => {
         }),
         onSubmit: async valores => {
             const { nombre, apellido, email, empresa, telefono } = valores;
+            //console.log(valores);
             try {
                 const { data } = await nuevoCliente({
                     variables: {

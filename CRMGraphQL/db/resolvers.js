@@ -240,11 +240,11 @@ const resolvers = {
     nuevoCliente: async (_, { input }, ctx) => {
       //verificar si el cliente ya esta registrado
       const { email } = input;
-      console.log(input.email);
+      //console.log(input.email);
 
       const cliente = await Cliente.findOne({ email });
-      console.log(cliente.nombre);
-      if (cliente.nombre != null) {
+
+      if (cliente) {
 
         throw new Error('El cliente ya existe');
       }
@@ -258,7 +258,6 @@ const resolvers = {
         return resultado;
       } catch (error) {
         console.log(error);
-
       }
 
 
