@@ -30,12 +30,10 @@ const ACTUALIZAR_CLIENTE = gql`mutation actualizarCliente($id: ID!, $input: Clie
 const OBTENER_CLIENTES_USUARIO = gql`
       query obtenerClientesVendedor{
         obtenerClientesVendedor{
-          id
           nombre
           apellido
           empresa
           email
-          vendedor
           telefono
         }
       }
