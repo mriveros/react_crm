@@ -12,7 +12,7 @@ const ELIMINAR_PRODUCTO = gql`
 //actualizar cache al eliminar
 const OBTENER_PRODUCTOS = gql`
 query obtenerProductos{
-    obtenerProducros{
+    obtenerProductos{
     id
     nombre
     precio
@@ -56,7 +56,7 @@ const Producto = ({ producto }) => {
                 try {
                     //eliminar por ID
                     const { data } = await eliminarProducto({
-                        variables: { id: id }
+                        variables: { id }
                     });
                     console.log(data);
 
@@ -87,7 +87,7 @@ const Producto = ({ producto }) => {
 
         <tr>
             <td className='border px-4 py-2'>{nombre}</td>
-            <td className='border px-4 py-2'>{precio} </td>
+            <td className='border px-4 py-2'>Gs. {precio} </td>
             <td className='border px-4 py-2'>{existencia} </td>
             <td className='border px-4 py-2'>
                 <button
