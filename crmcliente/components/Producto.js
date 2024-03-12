@@ -1,7 +1,8 @@
 import React from 'react'
 import Swal from 'sweetalert2';
-import { gql, useMutation } from '@apollo/client';
+import { gql,useMutation } from '@apollo/client';
 import Router from 'next/router';
+
 //MUTATION ELIMINAR
 const ELIMINAR_PRODUCTO = gql`
     mutation eliminarProducto($id: ID!){
@@ -10,38 +11,34 @@ const ELIMINAR_PRODUCTO = gql`
 
 //actualizar cache al eliminar
 const OBTENER_PRODUCTOS = gql`
-query obtenerProducros{
+query obtenerProductos{
     obtenerProducros{
     id
     nombre
-    existencia
     precio
-    creado
+    existencia
   }
-}
-    `;
+}`;
 
 const Producto = ({ producto }) => {
-
-
     //mutation para eliminar producto
     const [eliminarProducto] = useMutation(ELIMINAR_PRODUCTO, {
         update(cache) {
             //obtener una copia del objeto cache.
-            const { obtenerProducto } = cache.readQuery({ query: OBTENER_PRODUCTOS });
+            const { obtenerProductos } = cache.readQuery({ query: OBTENER_PRODUCTOS });
 
             //reescribir el objeto cache
             cache.writeQuery({
                 query: OBTENER_PRODUCTOS,
                 data: {
-                    obtenerProducto: obtenerProducto.filter(producto => producto.id !== id)
+                    obtenerProductos: obtenerProductos.filter(producto => producto.id !== id)
                 }
             })
         }
 
     });
 
-    const { nombre, existencia, precio, creado, id } = producto;
+    const { nombre, existencia, precio, id } = producto;
     //elimina un producto
     const confirmarEliminarProducto = id => {
         Swal.fire({

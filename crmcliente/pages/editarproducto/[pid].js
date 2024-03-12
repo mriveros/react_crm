@@ -9,74 +9,68 @@ import Swal from 'sweetalert2';
 
 const OBTENER_PRODUCTO = gql`query obtenerProducto($id:ID!){
     obtenerProducto(id: $id){
-      nombre
-      apellido
-      email
-      telefono
-      empresa
-    }  
+        nombre
+        precio
+        existencia
+        }  
     }`;
 
-const ACTUALIZAR_Producto = gql`mutation actualizarCliente($id: ID!, $input: ClienteInput){
-        actualizarCliente(id: $id, input: $input){
+const ACTUALIZAR_PRODUCTO = gql`mutation actualizarProducto($id: ID!, $input: ProductoInput){
+    actualizarProducto(id: $id, input: $input){
             nombre
-            apellido
-            email
-            telefono
-            empresa
+            existencia
+            precio
         }
       }`;
 
-const OBTENER_CLIENTES_USUARIO = gql`
-      query obtenerClientesVendedor{
-        obtenerClientesVendedor{
-          nombre
-          apellido
-          empresa
-          email
-          telefono
+const OBTENER_PRODUCTOS = gql`
+      query obtenerProductos{
+        obtenerProductos{
+            nombre
+            precio
+            existencia
         }
       }
             `;
 
-const EditarCliente = () => {
+const EditarProducto = () => {
     //obtener el id actual
     const router = useRouter();
     const { query: { id } } = router;
-
-    //consultar para obtener el cliente
-    const { data, loading, error } = useQuery(OBTENER_CLIENTE, {
+    
+    //consultar para obtener el producto
+    const { data, loading, error } = useQuery(OBTENER_PRODUCTO, {
         variables: {
             id
         }
     });
-
-    //Actualizar el cliente
-    //const [actualizarCliente] = useMutation(ACTUALIZAR_CLIENTE);
-    const [actualizarCliente] = useMutation(ACTUALIZAR_CLIENTE, {
-        update(cache, { data: { actualizarCliente } }) {
-            // Actulizar Clientes
-            const { obtenerClientesVendedor } = cache.readQuery({
-                query: OBTENER_CLIENTES_USUARIO
+    
+    //Actualizar el producto
+    //const [actualizarProducto] = useMutation(ACTUALIZAR_PRODUCTO);
+    const [actualizarProducto] = useMutation(ACTUALIZAR_PRODUCTO, {
+        update(cache, { data: { actualizarProducto } }) {
+            // Actualizar Productos
+            const { obtenerProductos } = cache.readQuery({
+                query: OBTENER_PRODUCTOS
             });
-
-            const clientesActualizados = obtenerClientesVendedor.map(cliente =>
-                cliente.id === id ? actualizarCliente : cliente
+           
+            const productosActualizados = obtenerProductos.map(producto =>
+                producto.id === id ? actualizarProducto : producto
             );
-
+           
             cache.writeQuery({
-                query: OBTENER_CLIENTES_USUARIO,
+                query: OBTENER_PRODUCTOS,
                 data: {
-                    obtenerClientesVendedor: clientesActualizados
+                    obtenerProductos: productosActualizados
                 }
             });
 
-            // Actulizar Cliente Actual
+            // Actualizar Producto Actual
             cache.writeQuery({
-                query: OBTENER_CLIENTE,
+                query: OBTENER_PRODUCTO,
                 variables: { id },
                 data: {
-                    obtenerCliente: actualizarCliente
+                    obtenerProducto: actualizarProducto
                 }
             });
         }
@@ -85,65 +79,58 @@ const EditarCliente = () => {
     //Schema de validacion
     const schemaValidacion = Yup.object({
         nombre: Yup.string()
-            .required('El nombre del Cliente es Obligatorio'),
-        apellido: Yup.string()
-            .required('El apellido del Cliente es Obligatorio'),
-        empresa: Yup.string()
-            .required('El campo empresa es obligatorio'),
-        email: Yup.string()
-            .email('Email no válido')
-            .required('El email del Cliente es Obligatorio'),
-        telefono: Yup.string()
+            .required('El nombre del Producto es Obligatorio'),
+        precio: Yup.string()
+            .required('El precio del Producto es Obligatorio'),
+        existencia: Yup.string()
+            .required('El campo existencia es obligatorio'),
 
     });
 
     if (loading) return 'Cargando...'
-    //console.log(data.obtenerCliente);
-    const { obtenerCliente } = data;
-    //Modifica el cliente en la base de datos
-    const actualizarInfoCliente = async valores => {
-        const { nombre, apellido, empresa, email, telefono } = valores;
-
+    //console.log(data.obtenerProducto);
+    const { obtenerProducto } = data;
+    //Modifica el producto en la base de datos
+    const actualizarInfoProducto = async valores => {
+        const { nombre, precio, existencia } = valores;
         try {
-            const { data } = await actualizarCliente({
+            const { data } = await actualizarProducto({
                 variables: {
                     id,
                     input: {
                         nombre,
-                        apellido,
-                        empresa,
-                        email,
-                        telefono
+                        precio,
+                        existencia
                     }
                 }
             });
-
-            //console.log(data);
+            
 
             //Mostrar alerta
             Swal.fire(
                 'Actualizado!',
-                'El Cliente se actualizó correctamente',
+                'El Producto se actualizó correctamente',
                 'success'
             )
             //redireccionar
-            router.push('/');
+            router.push('/productos');
 
         } catch (error) {
+            console.log("DATOS DEL ERROR");
             console.log(error);
         }
 
     }
     return (<Layout>
-        <h1 className='text-2xl text-gray-800 font-light'>Editar Cliente</h1>
+        <h1 className='text-2xl text-gray-800 font-light'>Editar Producto</h1>
         <div className='flex justify-center mt-5'>
             <div className='w-full max-w-lg'>
                 <Formik
                     validationSchema={schemaValidacion}
                     enableReinitialize
-                    initialValues={obtenerCliente}
+                    initialValues={obtenerProducto}
                     onSubmit={(valores) => {
-                        actualizarInfoCliente(valores);
+                        actualizarInfoProducto(valores);
 
                     }
                     }
@@ -161,7 +148,7 @@ const EditarCliente = () => {
                                     <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
                                         id="nombre"
                                         type="text"
-                                        placeholder="Nombre Cliente"
+                                        placeholder="Nombre Procucto"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
                                         value={props.values.nombre}
@@ -179,85 +166,50 @@ const EditarCliente = () => {
                                 }
 
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="apellido" >
-                                        Apellido
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="precio" >
+                                        Precio
                                     </label>
                                     <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
-                                        id="apellido"
+                                        id="precio"
                                         type="text"
-                                        placeholder="Apellido Cliente"
+                                        placeholder="Precio Producto"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.values.apellido}
+                                        value={props.values.precio}
                                     />
                                 </div>
                                 {
-                                    props.touched.apellido && props.errors.apellido ? (
+                                    props.touched.precio && props.errors.precio ? (
                                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                             <p className="font-bold">Error</p>
-                                            <p>{props.errors.apellido}</p>
+                                            <p>{props.errors.precio}</p>
                                         </div>
                                     ) : null
                                 }
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="empresa" >
-                                        Empresa
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="existencia" >
+                                        Existencia
                                     </label>
                                     <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
-                                        id="empresa"
+                                        id="existencia"
                                         type="text"
-                                        placeholder="Empresa Cliente"
+                                        placeholder="Existencia Producto"
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
-                                        value={props.values.empresa}
+                                        value={props.values.existencia}
                                     />
                                 </div>
                                 {
-                                    props.touched.empresa && props.errors.empresa ? (
+                                    props.touched.existencia && props.errors.existencia ? (
                                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                             <p className="font-bold">Error</p>
-                                            <p>{props.errors.empresa}</p>
+                                            <p>{props.errors.existencia}</p>
                                         </div>
                                     ) : null
                                 }
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email" >
-                                        Email
-                                    </label>
-                                    <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
-                                        id="email"
-                                        type="email"
-                                        placeholder="Email Cliente"
-                                        onChange={props.handleChange}
-                                        onBlur={props.handleBlur}
-                                        value={props.values.email}
-                                    />
-                                </div>
-                                {
-                                    props.touched.email && props.errors.email ? (
-                                        < div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                            <p className="font-bold">Error</p>
-                                            <p>{props.errors.email}</p>
-                                        </div>
-                                    ) : null
-                                }
-
-                                <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="telefono" >
-                                        Teléfono
-                                    </label>
-                                    <input className="shadow appearance-none border rounded w-full py-2 px3 text-gray-700 leading-tigth focus:outline-none focus:shadow-outline"
-                                        id="telefono"
-                                        type="tel"
-                                        placeholder="Teléfono Cliente"
-                                        onChange={props.handleChange}
-                                        onBlur={props.handleBlur}
-                                        value={props.values.telefono}
-                                    />
-                                </div>
 
                                 <input type="submit"
-                                    className='bg-gray-800 w-full mt-5 p-2  text-white uppercase font-bold hover:bg-gray-900' value="Actualizar Cliente" />
+                                    className='bg-gray-800 w-full mt-5 p-2  text-white uppercase font-bold hover:bg-gray-900' value="Actualizar Producto" />
 
                             </form>
                         )
@@ -270,4 +222,4 @@ const EditarCliente = () => {
     </Layout>);
 }
 
-export default EditarCliente;
+export default EditarProducto;
